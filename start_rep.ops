@@ -1,0 +1,29 @@
+import ("exe1")
+loadComponent("source","source2")
+
+source.setPeriod(0.1)
+source.configure
+source.amplitude=1
+source.frequency=0.1
+
+loadComponent("reporterN","OCL::NetcdfReporting")
+loadComponent("reporterF","OCL::FileReporting")
+loadComponent("reporterT","OCL::TcpReporting")
+connectPeers ("source","reporterN")
+connectPeers ("source","reporterF")
+connectPeers ("source","reporterT")
+reporterN.reportPort("source","outport_value")
+reporterF.reportPort("source","outport_value")
+reporterT.reportPort("source","outport_value")
+reporterN.setPeriod(0.1)
+reporterF.setPeriod(0.1)
+reporterT.setPeriod(0.1)
+
+reporterN.start()
+reporterF.start()
+reporterT.configure()
+reporterT.start()
+//to use: open a connection with netcat: nc   localhost 3145
+//needs specific comunication commands -> see
+// https://orocos.github.io/ocl/toolchain-2.9/api/html/classOCL_1_1TcpReporting.html
+source.start()

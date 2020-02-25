@@ -1,0 +1,9 @@
+import ("exe1")
+loadComponent("source","source")
+loadComponent("sink","sink")
+source.setPeriod(1)
+source.configure
+source.output_value=3
+connect("sink.event_inport_value","source.outport_value",ConnPolicy())
+sink.start
+source.start

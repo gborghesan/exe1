@@ -1,0 +1,19 @@
+import ("exe1")
+import("rtt_ros")
+import ("rtt_std_msgs")
+import("rtt_rosnode");//makes orocos a ros node. will complain if roscore is not running
+import("rtt_roscomm"); //contains the topic services
+
+
+loadComponent("source","source2")
+//loadComponent("sink","sink")
+source.setPeriod(1)
+source.configure
+
+stream("source.outport_value_ros", ros.topic("float_out"))
+
+source.amplitude=1
+source.frequency=0.1
+//connect("sink.event_inport_value","source.outport_value",ConnPolicy())
+//sink.start
+source.start
